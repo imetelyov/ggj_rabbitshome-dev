@@ -1,0 +1,118 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Sprites
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 2
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 0
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 2c1f80fe534b4d642b7cb301892576ad, type: 3}
+    - {fileID: 102900000, guid: c53a28595d01a2443b9ed6e6cfeeedbb, type: 3}
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 4bb55631cc174c24b95063cca84ba62d, type: 3}
+  - {fileID: 21300000, guid: 7f6691c1e2f86724c8dd8a9471edc5be, type: 3}
+  - {fileID: 21300000, guid: d849c3f1e2275ed41ab163dbf94515c5, type: 3}
+  - {fileID: 21300000, guid: 9b995a134df49df4f84541c7d02f3557, type: 3}
+  - {fileID: 21300000, guid: 7b9e4d2382541af46935cf24c020004c, type: 3}
+  - {fileID: 21300000, guid: 83bddc53bf4341d418be51acfef7f2c0, type: 3}
+  - {fileID: 21300000, guid: c5b2e0b3b485da7499a7cbb8f4e97cc0, type: 3}
+  - {fileID: 21300000, guid: 2f7a01c3779d6894c9936b2f13d4c5bc, type: 3}
+  - {fileID: 21300000, guid: 545cabc3f529e6149b7149090635007d, type: 3}
+  - {fileID: 21300000, guid: 8f101b34f8de64847bdf886e76197926, type: 3}
+  - {fileID: 21300000, guid: cf5b66449de2b8b4e81fb2ad83ec1db6, type: 3}
+  - {fileID: 21300000, guid: cfa80684c7a22af45926ba6da90b09f3, type: 3}
+  - {fileID: 21300000, guid: 56fc83d4cc4a26b4889b228a4a8983c2, type: 3}
+  - {fileID: 21300000, guid: d9ee1ce46e4f0a544996955163953ec1, type: 3}
+  - {fileID: 21300000, guid: a404bd062524bf943bf9474878e8dd0c, type: 3}
+  - {fileID: 21300000, guid: acb8ad27479018449b9c1d6267a4aa63, type: 3}
+  - {fileID: 21300000, guid: ada4da67601530044b6ac53de782517a, type: 3}
+  - {fileID: 21300000, guid: 2e265c2898ee16c4ca36df2592fad446, type: 3}
+  - {fileID: 21300000, guid: c2a845c843d6df2428eee5637ddbe387, type: 3}
+  - {fileID: 21300000, guid: 5ed7dca9669fcf049904b2a70b41e503, type: 3}
+  - {fileID: 21300000, guid: 701c4eb92c86c45feb11fd054ba7bb8f, type: 3}
+  - {fileID: 21300000, guid: 682a280afd7a1914685f709909212549, type: 3}
+  - {fileID: 21300000, guid: 90baa71a310ea614ea830d55b1fa0227, type: 3}
+  - {fileID: 21300000, guid: 7fa74a5aca9961447b214bc7a83ad382, type: 3}
+  - {fileID: 21300000, guid: 9ce85e9aded9e9b4bbd41e8890e3dafd, type: 3}
+  - {fileID: 21300000, guid: e651affacf5442941b3acc0e4f1d1845, type: 3}
+  - {fileID: 21300000, guid: 87b3fa9ba93cb714084445559b0e7461, type: 3}
+  - {fileID: 21300000, guid: 820d261c995fb194880b4b83d00f21dd, type: 3}
+  - {fileID: 21300000, guid: 57b400fca812bf1488df7189fddd262c, type: 3}
+  - {fileID: 21300000, guid: 9483f91d739f74e4ea9748efd5e866a7, type: 3}
+  - {fileID: 21300000, guid: 4ba7952d6aa4acf44a6d66dc8802c92a, type: 3}
+  - {fileID: 21300000, guid: 110e0afdead17ba4292fe9c9dcec3a9a, type: 3}
+  - {fileID: 21300000, guid: 834b6ffe751752241b6d619fcf4ad90f, type: 3}
+  - {fileID: 21300000, guid: 0a7959dfb68dd6b48a3659189f3bfe75, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - sfx_128
+  - music_128
+  - pause_128
+  - phone_512
+  - jerrycan_256
+  - hexagonal-nut_128
+  - VK
+  - refresh_128
+  - info
+  - video-player_128
+  - settings_128
+  - Quasar_Logo_256_white
+  - ButtonBorder_128
+  - SquareRound_32
+  - HeadlightsCookie
+  - hexagonal-nut_256
+  - trophy_128
+  - hands_512
+  - hand
+  - trash_128
+  - Circle
+  - plug_256
+  - play_256_simple
+  - CaveRacerCloudTrail2
+  - present_128
+  - play_128
+  - gas-pump_256
+  - round-star_128
+  - Skidmarks
+  - planet-earth_128
+  - help_128
+  - checked_128
+  - games_controller_white_128
+  - home_128
+  m_Tag: Sprites
+  m_IsVariant: 0
