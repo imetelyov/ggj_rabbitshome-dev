@@ -12,6 +12,8 @@ namespace QuasarGames
         MenuMain,
         MenuSettings,
         MenuAbout,
+        MenuPause,
+        MenuGameOver,
         MenuTutorial,
         GameplayMain
     }
@@ -27,6 +29,8 @@ namespace QuasarGames
 
         public GameObject menuMain;
         public GameObject menuSettings;
+        public GameObject menuPause;
+        public GameObject menuGameOver;
         public GameObject menuAbout;
 
         void Awake()
@@ -45,6 +49,8 @@ namespace QuasarGames
 
             ui_all.Add(menuMain);
             ui_all.Add(menuSettings);
+            ui_all.Add(menuPause);
+            ui_all.Add(menuGameOver);
             ui_all.Add(menuAbout);
 
             List<GameObject> ui_active = new List<GameObject>();
@@ -67,6 +73,28 @@ namespace QuasarGames
                     currentState = UI_State.MenuSettings;
 
                     ui_active.Add(menuSettings);
+
+                    TurnUIOnOff(ui_all, ui_active);
+
+                    GameManager.Instance.ChangeState(GameState.MENU);
+
+                    break;
+
+                case "MenuPause":
+                    currentState = UI_State.MenuPause;
+
+                    ui_active.Add(menuPause);
+
+                    TurnUIOnOff(ui_all, ui_active);
+
+                    GameManager.Instance.ChangeState(GameState.MENU);
+
+                    break;
+
+                case "MenuGAmeOver":
+                    currentState = UI_State.MenuGameOver;
+
+                    ui_active.Add(menuGameOver);
 
                     TurnUIOnOff(ui_all, ui_active);
 
@@ -153,13 +181,13 @@ namespace QuasarGames
                     GameStateParametersManager.Instance.SetTrigger("ShowPause");
                     break;
 
-                //case UI_State.MenuPause:
-                //    menuPause.GetComponent<Animator>().SetTrigger("Hide");
-                //    break;
+                case UI_State.MenuPause:
+                    GameStateParametersManager.Instance.SetTrigger("HidePause");
+                    break;
 
-                //case UI_State.MenuGameOver:
-                //    gameStateController.SetBool("Bool_ToMainMenu", true);
-                //    break;
+                case UI_State.MenuGameOver:
+                    GameStateParametersManager.Instance.SetBoolTrue("Bool_ToMainMenu");
+                    break;
 
                 default:
                     break;
