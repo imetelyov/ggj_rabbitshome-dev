@@ -26,7 +26,7 @@ public class PlaceTrigger : MonoBehaviour
     public PlacesTypes placeType;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         Init();
 

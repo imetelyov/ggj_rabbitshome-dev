@@ -6,9 +6,9 @@ public enum PlayerActions
 {
     PICKUP,
     PUT,
-    PLACE
+    PLACE,
+    NONE
 }
-
 
 public class PlayerGameplay : MonoBehaviour
 {
@@ -17,32 +17,98 @@ public class PlayerGameplay : MonoBehaviour
 
     public GameObject pickupContainer;
 
+    public GameObject pickupObject;
+
     public PickupPlace activePickupPlace = null;
+
+    public bool showAction = false;
+    public PlayerActions activeAction;
+    public GameObject pickupIndicator;
+    public GameObject placeIndicator;
+
 
     // PARAMS
     public bool freeHands = true;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
- 
+        activeAction = PlayerActions.NONE;
+        ShowActionIndicator();
     }
 
-
-    public void TakeObject()
+    private void Update()
     {
-        if (!freeHands)
+        if (Input.GetButtonDown("Fire1"))
         {
-            return;
+            MakeAction();
+        }
+    }
+
+    public void MakeAction()
+    {
+        if (activePickupPlace != null)
+        {
+            if (activePickupPlace.canPickup && activePickupPlace.infinitePickup && !activePickupPlace.vacant && freeHands)
+            {
+                freeHands = false;
+
+                pickupObject = Instantiate(activePickupPlace.Pickup(), pickupContainer.transform.position, transform.rotation, pickupContainer.transform);
+
+                
+            }
+            else if (activePickupPlace.canPickup && !activePickupPlace.infinitePickup && !activePickupPlace.vacant && freeHands)
+            {
+                freeHands = false;
+
+                pickupObject = activePickupPlace.Pickup();
+
+                pickupObject.transform.position = pickupContainer.transform.position;
+                pickupObject.transform.rotation = transform.rotation;
+                pickupObject.transform.parent = pickupContainer.transform;
+
+                
+            }
+            else if (activePickupPlace.canPickup && !freeHands)
+            {
+
+            }
+            else if (activePickupPlace.canPlace && activePickupPlace.vacant && !freeHands)
+            {
+                freeHands = true;
+
+                activePickupPlace.pickupObject = pickupObject;
+                activePickupPlace.Place();
+
+                pickupObject = null;
+                
+            }
         }
 
     }
 
-    public void PlaceObject()
+    public void ShowActionIndicator()
     {
-        if (freeHands)
+        switch (activeAction)
         {
-            return;
+            case PlayerActions.PICKUP:
+                pickupIndicator.SetActive(true);
+                placeIndicator.SetActive(false);
+                break;
+            case PlayerActions.PLACE:
+                pickupIndicator.SetActive(false);
+                placeIndicator.SetActive(true);
+                break;
+            case PlayerActions.NONE:
+                pickupIndicator.SetActive(false);
+                placeIndicator.SetActive(false);
+                break;
+            default:
+                pickupIndicator.SetActive(false);
+                placeIndicator.SetActive(false);
+                break;
         }
+        
     }
+
+
 }
