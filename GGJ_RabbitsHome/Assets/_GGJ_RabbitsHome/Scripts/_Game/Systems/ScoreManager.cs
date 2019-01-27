@@ -11,31 +11,20 @@ namespace QuasarGames
 
         public static ScoreManager Instance;
 
-        public int coins
-        {
-            get
-            {
-                return _coins;
-            }
-            set
-            {
-                if (_coins != value)
-                {
-                    _coins = Mathf.Max(0, value);
-
-                    PrefsCenter.Coins = _coins;
-
-                    UpdateAllStats();
-                }
-            }
-        }
-        [SerializeField]
-        private int _coins;
+        public int babiesCount = 0;
 
         [Space(20)]
-        [Header("LEVEL SELECT MENU")]
-        public TextMeshProUGUI coinsTextLevelSelectMenu;
+        [Header("UI")]
+        public TextMeshProUGUI babiesTextUI;
+        public TextMeshProUGUI babiesTextUI_GameOver;
 
+
+        [Header("TIMER")]
+        public float gameTime = 180f;
+        public float gameTimer = 0f;
+        public TextMeshProUGUI gameTimerUI;
+        private bool isCounting = false;
+        
         void Awake()
         {
             Instance = this;
@@ -46,79 +35,62 @@ namespace QuasarGames
             ResetAllStats();
         }
 
-        public void UpdateValues()
-        {
-            //
-        }
-
         public void ResetAllStats()
         {
             // COINS
-            coins = PrefsCenter.Coins;
+            babiesCount = 0;
+
+            gameTimer = 0f;
+            isCounting = false;
 
             UpdateAllStats();
         }
 
         public void UpdateAllStats()
         {
-            UpdateValues();
-
-            //COINS
-            //coinsTextLevelSelectMenu.GetComponent<UI_CurveNumberChanger>().SetNumber(_coins);
+            babiesTextUI.GetComponent<TMPro.TextMeshProUGUI>().text = babiesCount.ToString();
+            babiesTextUI_GameOver.GetComponent<TMPro.TextMeshProUGUI>().text = babiesCount.ToString();
+            gameTimerUI.GetComponent<TMPro.TextMeshProUGUI>().text = ((int)(gameTime - gameTimer)).ToString() + " s";
 
         }
 
 
-        // HIGH SCORE
 
-        public void TrySetBestTime(string levelID, float value)
+
+        public void ClearBabies()
         {
-            if (
-                (value > 0f)
-                && (value < PrefsCenter.GetLevelBestTime(levelID))
-               )
-            {
-                PrefsCenter.SetLevelBestTime(levelID, value);
-            }
-
-            UpdateAllStats();
-        }
-
-
-        // COINS
-
-        public void ClearCoins()
-        {
-            PrefsCenter.Coins = 0;
-
             ResetAllStats();
         }
 
-        public void AddCoins(int value = 1)
+        public void AddBabies(int value = 1)
         {
-            coins += value;
+            babiesCount += value;
+            UpdateAllStats();
+        }
+
+        public void StartTimer()
+        {
+            gameTimer = 0f;
+            isCounting = true;
         }
 
 
-        // SPEND COINS
 
-        public bool SpendCoins(int value)
+        private void Update()
         {
-            bool success = false;
-            if (CanSpend(value))
+            if (isCounting)
             {
-                coins -= value;
-                success = true;
+                gameTimer += Time.deltaTime;
+
+                if (gameTimer > gameTime)
+                {
+                    isCounting = false;
+                    GameManager.Instance.ChangeState(GameState.GAMEOVER);
+                }
             }
-            else
-                Quasarlog.Log("Cannot spend so much!");
 
-            return success;
-        }
+            UpdateAllStats();
 
-        public bool CanSpend(int value)
-        {
-            return (value <= _coins);
         }
 
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using QuasarGames;
 
 public enum PlayerActions
 {
@@ -38,9 +39,13 @@ public class PlayerGameplay : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (GameManager.Instance.GetCurrentGameState() == GameState.GAMEPLAY)
         {
-            MakeAction();
+
+            if (Input.GetButtonDown("Fire1"))
+            {
+                MakeAction();
+            }
         }
     }
 
@@ -76,9 +81,11 @@ public class PlayerGameplay : MonoBehaviour
             {
                 freeHands = true;
 
+                activePickupPlace.avalibleObjectsCount += 1;
+
                 activePickupPlace.pickupObject = pickupObject;
                 activePickupPlace.Place();
-
+                
                 pickupObject = null;
                 
             }

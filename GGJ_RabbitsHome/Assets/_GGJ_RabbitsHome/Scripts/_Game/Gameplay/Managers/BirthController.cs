@@ -25,13 +25,11 @@ public class BirthController : MonoBehaviour
 
     private void Init()
     {
-        ResetTimer();
-
         babyIsReady = false;
         babyIsWaiting = false;
     }
 
-    private void StopTimer()
+    public void StopTimer()
     {
         isCounting = false;
         timer = 0;
@@ -47,7 +45,10 @@ public class BirthController : MonoBehaviour
 
     private void Update()
     {
-        timer -= Time.deltaTime;
+        if (isCounting)
+        {
+            timer += Time.deltaTime;
+        }
 
         if (timer > birthTime)
         {
@@ -66,11 +67,15 @@ public class BirthController : MonoBehaviour
 
     }
 
-    public void DeployBaby()
+    public void DeployBaby(bool reset = false)
     {
-        babyIsReady = false;
-        ResetTimer();
+        if (reset)
+        {
+            ResetTimer();
+        }
 
+        babyIsReady = false;
+        
         birthAnimator.SetTrigger("Start");
     }
 
@@ -78,9 +83,22 @@ public class BirthController : MonoBehaviour
     {
         babyIsWaiting = true;
 
+        StopTimer();
+
         var pickupPlace = GetComponent<PickupPlace>();
 
-        pickupPlace.AllowPickup();
+        pickupPlace.AddAvalibleObj();
+    }
+
+    public void TakeBaby()
+    {
+        babyIsWaiting = false;
+        babyIsReady = false;
+
+        ResetTimer();
+
+        birthAnimator.SetTrigger("Ready");
+
     }
 
 

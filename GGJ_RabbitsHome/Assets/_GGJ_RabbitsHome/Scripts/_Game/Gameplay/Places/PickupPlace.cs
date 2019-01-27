@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using QuasarGames;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ public class PickupPlace : MonoBehaviour
     public bool timerBasedPickup = false;
 
     public bool infinitePickup = false;
+
+    public int avalibleObjectsCount = 0;
 
     public bool canPickup = false;
     public bool canPlace = false;
@@ -44,7 +47,7 @@ public class PickupPlace : MonoBehaviour
             activePlayerGP = other.GetComponent<PlayerGameplay>();
             activePlayerGP.activePickupPlace = this;
 
-            if (activePlayerGP.freeHands && (infinitePickup || vacant == false))
+            if (activePlayerGP.freeHands && (infinitePickup || vacant == false) && avalibleObjectsCount > 0)
             {
                 canPickup = true;
 
@@ -84,22 +87,33 @@ public class PickupPlace : MonoBehaviour
     {
         GameObject objectToReturn;
 
-        if (!infinitePickup)
+        if (!infinitePickup && avalibleObjectsCount > 0)
         {
             objectToReturn = pickupObject;
             pickupObject = null;
             vacant = true;
+            avalibleObjectsCount -= 1;
         }
-        else
+        else if (infinitePickup && avalibleObjectsCount > 0)
         {
             objectToReturn = pickupObjectPrefab;
             vacant = false;
+            avalibleObjectsCount -= 1;
+        }
+        else
+        {
+            objectToReturn = null;
+            vacant = true;
+            avalibleObjectsCount = 0;
+        }
 
-            DisallowPickup();
+        if (GetComponent<BirthController>() != null)
+        {
+            GetComponent<BirthController>().TakeBaby();
         }
 
 
-        if (infinitePickup || vacant == false)
+        if ((infinitePickup || vacant == false) && avalibleObjectsCount > 0)
         {
             canPickup = true;
 
@@ -133,6 +147,18 @@ public class PickupPlace : MonoBehaviour
 
         vacant = false;
 
+        if (placeTrigger.placeType == PlacesTypes.SCHOOL)
+        {
+            ScoreManager.Instance.AddBabies();
+
+            Destroy(pickupObject);
+
+            pickupObject = null;
+
+            vacant = true;
+        }
+
+
 
         if (infinitePickup || vacant == false)
         {
@@ -141,6 +167,11 @@ public class PickupPlace : MonoBehaviour
             if (activePlayerGP.freeHands)
             {
                 activePlayerGP.activeAction = PlayerActions.PICKUP;
+                activePlayerGP.ShowActionIndicator();
+            }
+            else
+            {
+                activePlayerGP.activeAction = PlayerActions.NONE;
                 activePlayerGP.ShowActionIndicator();
             }
         }
@@ -154,23 +185,19 @@ public class PickupPlace : MonoBehaviour
                 activePlayerGP.activeAction = PlayerActions.PLACE;
                 activePlayerGP.ShowActionIndicator();
             }
+            else
+            {
+                activePlayerGP.activeAction = PlayerActions.NONE;
+                activePlayerGP.ShowActionIndicator();
+
+            }
         }
     }
 
 
-    public void AllowPickup()
+    public void AddAvalibleObj()
     {
-        if (timerBasedPickup)
-        {
-            infinitePickup = true;
-        }
+        avalibleObjectsCount += 1;
     }
 
-    public void DisallowPickup()
-    {
-        if (timerBasedPickup)
-        {
-            infinitePickup = false;
-        }
-    }
 }

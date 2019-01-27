@@ -12,9 +12,7 @@ namespace QuasarGames
         MenuMain,
         MenuSettings,
         MenuAbout,
-        MenuPause,
         MenuGameOver,
-        MenuTutorial,
         GameplayMain
     }
 
@@ -29,7 +27,6 @@ namespace QuasarGames
 
         public GameObject menuMain;
         public GameObject menuSettings;
-        public GameObject menuPause;
         public GameObject menuGameOver;
         public GameObject menuAbout;
 
@@ -49,7 +46,6 @@ namespace QuasarGames
 
             ui_all.Add(menuMain);
             ui_all.Add(menuSettings);
-            ui_all.Add(menuPause);
             ui_all.Add(menuGameOver);
             ui_all.Add(menuAbout);
 
@@ -80,18 +76,7 @@ namespace QuasarGames
 
                     break;
 
-                case "MenuPause":
-                    currentState = UI_State.MenuPause;
-
-                    ui_active.Add(menuPause);
-
-                    TurnUIOnOff(ui_all, ui_active);
-
-                    GameManager.Instance.ChangeState(GameState.MENU);
-
-                    break;
-
-                case "MenuGAmeOver":
+                case "MenuGameOver":
                     currentState = UI_State.MenuGameOver;
 
                     ui_active.Add(menuGameOver);
@@ -181,12 +166,8 @@ namespace QuasarGames
                     GameStateParametersManager.Instance.SetTrigger("ShowPause");
                     break;
 
-                case UI_State.MenuPause:
-                    GameStateParametersManager.Instance.SetTrigger("HidePause");
-                    break;
-
                 case UI_State.MenuGameOver:
-                    GameStateParametersManager.Instance.SetBoolTrue("Bool_ToMainMenu");
+                    //GameStateParametersManager.Instance.SetBoolTrue("Bool_ToMainMenu");
                     break;
 
                 default:

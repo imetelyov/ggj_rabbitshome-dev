@@ -12,7 +12,8 @@ namespace QuasarGames
     public enum GameState
     {
         MENU,
-        GAMEPLAY
+        GAMEPLAY,
+        GAMEOVER
     }
 
     public class GameManager : MonoBehaviour
@@ -56,6 +57,21 @@ namespace QuasarGames
             gameState = newState;
 
             ScoreManager.Instance.UpdateAllStats();
+
+            if (GetCurrentGameState() == GameState.GAMEPLAY)
+            {
+                BirthController.Instance.DeployBaby(true);
+
+                ScoreManager.Instance.ClearBabies();
+                ScoreManager.Instance.StartTimer();
+            }
+            if (GetCurrentGameState() == GameState.GAMEOVER)
+            {
+                BirthController.Instance.StopTimer();
+
+                GameStateParametersManager.Instance.SetTrigger("ShowGameOver");
+            }
+
         }
 
         public GameState GetCurrentGameState()
